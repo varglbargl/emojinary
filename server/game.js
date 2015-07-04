@@ -6,14 +6,12 @@ exports.rooms = [
     players: [
       // { id: "string",
       // name: "string",
-      // answer: "string",
-      // out: boolean }
+      // score: integer }
     ]
   }
 ];
 
 exports.joinRoom = function (name, room, id) {
-  console.log(exports.rooms[room]);
   if (!exports.rooms[room]) {
     console.log('Creating room:', room);
     exports.rooms[room] = {players: [], currentAsker: 0, emojiLog: []};
@@ -55,6 +53,10 @@ exports.guess = function (room, player, guess) {
   }
 
   return correct;
+};
+
+exports.submitEmojis = function (room, emojis) {
+  exports.rooms[room].emojiLog.push(emojis);
 };
 
 exports.newRound = function (room) {

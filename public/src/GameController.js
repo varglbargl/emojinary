@@ -6,21 +6,29 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
   $scope.guess = '';
   $scope.emojis = '';
 
-  $scope.submitGuess = function () {
-    $rootScope.socket.emit('guess', {
-      username: $rootScope.username,
-      room: $rootScope.room,
-      guess: $scope.guess
-    });
-    $scope.guess = '';
+  $scope.typeInput = function (evt) {
+    console.log(evt.keyCode);
+    if (evt.keyCode === 13) {
+      $scope.submitGuess();
+      return;
+    }
   };
 
-  $scope.submitEmojis = function () {
-    $rootScope.socket.emit('emojis', {
-      room: $rootScope.room,
-      emojis: $scope.emojis
-    });
-    $scope.emojis = '';
+  $scope.submitGuess = function () {
+    if ($scope.currentAsker === $scope.you) {
+      $rootScope.socket.emit('emojis', {
+        room: $rootScope.room,
+        emojis: $scope.emojis
+      });
+      $scope.emojis = '';
+    } else {
+      $rootScope.socket.emit('guess', {
+        username: $rootScope.username,
+        room: $rootScope.room,
+        guess: $scope.guess
+      });
+      $scope.guess = '';
+    }
   };
 
   // socket.io stuff. Remember to $digest() manually...

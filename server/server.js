@@ -53,7 +53,7 @@ io.on('connection', function (socket) {
   socket.on('emojis', function (data) {
     game.submitEmojis(data.room, data.emojis);
 
-    console.log(data.username, 'guessed', data.guess, '...', data.result ? 'CORRECT!' : 'WRONG!');
+    console.log(game.rooms[data.room].players[game.rooms[data.room].currentAsker].name, 'emoted', data.emojis);
     io.emit('emojis', data);
   });
 
