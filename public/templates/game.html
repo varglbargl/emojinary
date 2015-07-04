@@ -1,5 +1,7 @@
 <div class="centered-content">
-  <div class="stage"></div>
+  <div class="stage">
+    <p class="emoji-block" ng-repeat="emote in emojiLog">{{emote}}</p>
+  </div>
   <div class="timer"></div>
   <p class="warning" ng-hide="isOnlyEmoji(emojis)">You may only use Emojis!</p>
   <form class="guess" ng-submit="submitGuess()">

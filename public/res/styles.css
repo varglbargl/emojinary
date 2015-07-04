@@ -63,7 +63,7 @@ h1, h2, h3, h4 {
   height: 48px;
   width: 60%;
   display: block;
-  border-radius: 10px;
+  border-radius: 5px;
   border: 0;
   margin: 10px auto;
 
@@ -81,15 +81,15 @@ h1, h2, h3, h4 {
 }
 
 .play-button:focus, .play-button:active {
-  background-color: #000;
+  background-color: #F06;
 }
 
 .warning {
   position: absolute;
   left: 0;
-  bottom: 12px;
+  bottom: 14px;
   width: 100%;
-  color: red;
+  color: #F06;
 }
 
 .inputBox {
@@ -99,10 +99,26 @@ h1, h2, h3, h4 {
   position: absolute;
   bottom: 0;
   left: 0;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .red {
-  border: 2px solid red;
-  background-color: #FCC;
+  border: 2px solid #F06;
+  background-color: #FCD;
+}
+
+.stage {
+  box-sizing: border-box;
+  padding: 20px;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+}
+
+.emoji-block {
+  display: block;
+  text-align: left;
+  margin: 0;
+  font-size: 40px;
 }

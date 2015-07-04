@@ -6,6 +6,8 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
   $scope.guess = '';
   $scope.emojis = '';
 
+  $scope.emojiLog = [];
+
   $scope.typeInput = function (evt) {
     if (evt.keyCode === 13) {
       $scope.submitGuess();
@@ -15,11 +17,13 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
 
   $scope.submitGuess = function () {
     if ($scope.currentAsker === $scope.you) {
-      $rootScope.socket.emit('emojis', {
-        room: $rootScope.room,
-        emojis: $scope.emojis
-      });
-      $scope.emojis = '';
+      if ($scope.isOnlyEmoji($scope.emojis)) {
+        $rootScope.socket.emit('emote', {
+          room: $rootScope.room,
+          emojis: $scope.emojis
+        });
+        $scope.emojis = '';
+      }
     } else {
       $rootScope.socket.emit('guess', {
         username: $rootScope.username,
@@ -53,6 +57,12 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
 
   $rootScope.socket.on('player-leave', function (data) {
     initPlayers(data.players);
+    $scope.$digest();
+  });
+
+  $rootScope.socket.on('emote', function (data) {
+    console.log(data.emojis);
+    $scope.emojiLog.push(data.emojis);
     $scope.$digest();
   });
 

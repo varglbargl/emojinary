@@ -50,11 +50,11 @@ io.on('connection', function (socket) {
     io.emit('guess', data);
   });
 
-  socket.on('emojis', function (data) {
+  socket.on('emote', function (data) {
     game.submitEmojis(data.room, data.emojis);
 
     console.log(game.rooms[data.room].players[game.rooms[data.room].currentAsker].name, 'emoted', data.emojis);
-    io.emit('emojis', data);
+    io.emit('emote', data);
   });
 
   socket.on('disconnect', function () {
