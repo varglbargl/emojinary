@@ -61,7 +61,7 @@ io.on('connection', function (socket) {
     if (!game.rooms[0]) return;
 
     var name = game.leaveRoom(socket.id, 0);
-    console.log('A user has disconnected.', name);
+    console.log('A user has disconnected:', name);
 
     if (!game.rooms[0]) return;
 

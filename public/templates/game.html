@@ -1,9 +1,10 @@
 <div class="centered-content">
   <div class="stage"></div>
   <div class="timer"></div>
+  <p class="warning" ng-hide="isOnlyEmoji(emojis)">You may only use Emojis!</p>
   <form class="guess" ng-submit="submitGuess()">
-    <input type="text" class="guessBox" ng-model="guess" ng-keypress="typeInput($event)" ng-hide="currentAsker === you">
-    <input type="text" class="emojiBox" ng-model="emojis" ng-keypress="typeInput($event)" ng-show="currentAsker === you">
+    <input type="text" class="inputBox guessBox" ng-model="guess" ng-keypress="typeInput($event)" ng-hide="currentAsker === you">
+    <input type="text" class="inputBox emojiBox" ng-model="emojis" ng-keypress="typeInput($event)" ng-show="currentAsker === you" ng-class="{red: !isOnlyEmoji(emojis)}">
   </form>
 </div>
 
