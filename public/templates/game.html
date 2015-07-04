@@ -1,0 +1,26 @@
+<div class="answers-window vertical-split">
+  <p ng-hide="answers.length">{{prompt}}</p>
+  <p ng-hide="answers.length || prompt">Waiting for a new question...</p>
+  <div class="answer-card" ng-repeat="answer in answers" ng-click="selectAnswer($index)" ng-class="{selected: selectedAnswer==$index,out:answer.out}">
+    <p class="answer-text">{{answer.text}}</p>
+  </div>
+</div>
+<div class="players-window vertical-split">
+  <p ng-hide="players.length > 2">Waiting for other players...</p>
+  <div ng-hide="phase !== 'guess'">
+    <p ng-hide="currentGuesser !== you">It is your turn to guess!</p>
+    <p ng-hide="currentGuesser === you">{{players[currentGuesser].name}} is guessing...</p>
+  </div>
+  <h1 class="player-card" ng-repeat="player in players" ng-click="selectPlayer($index)" ng-class="{selected: selectedPlayer==$index,out:player.out}">{{player.name}}</h1>
+</div>
+
+<!-- results screen -->
+
+<div class="notification" ng-class="{visible: results.who}">
+  <h2 class="guess user-guess" ng-class="{visible: results.who}">{{results.who}}</h2>
+  <h2>guessed that</h2>
+  <h2 class="guess player-guess" ng-class="{visible: results.player}">{{results.player}}</h2>
+  <h2>said</h2>
+  <h2 class="guess answer-guess" ng-class="{visible: results.answer}">"{{results.answer}}"</h2>
+  <h2 class="guess-result" ng-class="{visible: results.result}">{{results.result}}</h2>
+</div>
