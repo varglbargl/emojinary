@@ -1,6 +1,6 @@
 {
   "name": "emojinary",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Charades but with 100% emoji",
   "main": "server/server.js",
   "scripts": {

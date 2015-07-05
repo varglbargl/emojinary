@@ -1,3 +1,5 @@
+var movies = require('./movies.js');
+
 exports.rooms = [
   {
     answer: '',
