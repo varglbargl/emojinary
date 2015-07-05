@@ -17,7 +17,7 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
 
   $scope.submitGuess = function () {
     if ($scope.currentAsker === $scope.you) {
-      if ($scope.isOnlyEmoji($scope.emojis)) {
+      if ($scope.isOnlyEmoji($scope.emojis) && $scope.emojis) {
         $rootScope.socket.emit('emote', {
           room: $rootScope.room,
           emojis: $scope.emojis
