@@ -14,3 +14,9 @@
 
 <div class="notification" ng-class="{visible: results.who}">
 </div>
+
+<!-- movie selection screen -->
+
+<div class="notification" ng-class="{visible: movieChoices.length}">
+  <a class="button l-button" ng-repeat="choice in movieChoices track by $index" ng-click="selectMovie($index)">{{choice}}</a>
+</div>

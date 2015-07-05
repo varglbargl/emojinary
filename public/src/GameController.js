@@ -7,11 +7,12 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
   $scope.emojis = '';
 
   $scope.emojiLog = [];
+  $scope.movieChoises = [];
+  $scope.movie = '';
 
   $scope.typeInput = function (evt) {
     if (evt.keyCode === 13) {
       $scope.submitGuess();
-      return;
     }
   };
 
@@ -52,11 +53,25 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
       }
     }
 
+    if ($scope.players.length > 1 && $scope.currentAsker === $scope.you) {
+      $http.get('/movies').success(function (data) {
+        $scope.movieChoices = data;
+      });
+    }
+
     $scope.$digest();
   });
 
   $rootScope.socket.on('player-leave', function (data) {
     initPlayers(data.players);
+
+    // This assumes names are unique. Handle that server side.
+    for (var i = 0; i < data.players.length; i++) {
+      if (data.players[i].name === $rootScope.username) {
+        $scope.you = i;
+      }
+    }
+
     $scope.$digest();
   });
 
