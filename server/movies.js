@@ -54,3 +54,18 @@ exports.list = ['Ghostbusters',
 exports.randomMovie = function () {
   return exports.list[Math.floor(Math.random()*exports.list.length)];
 };
+
+exports.getThree = function () {
+  var swapElements = function (n) {
+    var temp = exports.list[n];
+    var randomIndex = Math.floor(Math.random()*(exports.list.length - 3) + 3);
+    exports.list[n] = exports.list[randomIndex];
+    exports.list[randomIndex] = temp;
+  };
+
+  swapElements(0);
+  swapElements(1);
+  swapElements(2);
+
+  return exports.list.slice(0, 3);
+};

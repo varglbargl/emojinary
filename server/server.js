@@ -4,6 +4,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
 var game = require('./game.js');
+var movies = require('./movies.js');
 
 // -- SERVE STATIC FILES and JSON
 
@@ -13,6 +14,10 @@ app.get('/room', function (req, res) {
   var room = req.url.split('?')[1];
 
   res.send(getRoomData(room));
+});
+
+app.get('/movies', function (req, res) {
+  res.send(movies.getThree());
 });
 
 var getRoomData = function (room) {
