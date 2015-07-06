@@ -43,6 +43,10 @@ exports.leaveRoom = function (id, room) {
   return name;
 };
 
+exports.selectMovie = function (room, movie) {
+  exports.rooms[room].answer = movie;
+};
+
 exports.guess = function (room, player, guess) {
   var correct = guess.toLowerCase() === exports.rooms[room].answer.toLowerCase();
 

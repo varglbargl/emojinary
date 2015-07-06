@@ -75,6 +75,7 @@ h1, h2, h3, h4 {
 
 .l-button {
   height: auto;
+  padding: 10px;
   font-size: 24px;
   line-height: 24px;
 }

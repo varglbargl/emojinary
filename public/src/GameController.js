@@ -5,9 +5,10 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
   $scope.you = null;
   $scope.guess = '';
   $scope.emojis = '';
+  $scope.ready = false;
 
   $scope.emojiLog = [];
-  $scope.movieChoises = [];
+  $scope.movieChoices = [];
   $scope.movie = '';
 
   $scope.typeInput = function (evt) {
@@ -33,6 +34,17 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
       });
       $scope.guess = '';
     }
+  };
+
+  $scope.selectMovie = function (n) {
+    $scope.movie = $scope.movieChoices;
+    $scope.movieChoices = [];
+
+    $rootScope.socket.emit('ready', {
+      username: $rootScope.username,
+      room: $rootScope.room,
+      movie: $scope.movie
+    });
   };
 
   // socket.io stuff. Remember to $digest() manually...
@@ -75,8 +87,12 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
     $scope.$digest();
   });
 
+  $rootScope.socket.on('ready', function () {
+    $scope.ready = true;
+    $scope.$digest();
+  });
+
   $rootScope.socket.on('emote', function (data) {
-    console.log(data.emojis);
     $scope.emojiLog.push(data.emojis);
     $scope.$digest();
   });
@@ -106,9 +122,8 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
   // game utils
 
   var newRound = function () {
-    $scope.prompt = '';
-    $scope.answers = [];
-    $scope.phase = 'ask';
+    $scope.emojiLog = [];
+    $scope.ready = false;
     $scope.currentAsker++;
     if ($scope.currentAsker >= $scope.players.length) {
       $scope.currentAsker = 0;

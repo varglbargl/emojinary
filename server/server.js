@@ -49,10 +49,17 @@ io.on('connection', function (socket) {
   });
 
   socket.on('guess', function (data) {
-    data.result = game.guess(data.room, data.guess, data.player);
+    data.result = game.guess(data.room, data.guess, data.username);
 
     console.log(data.username, 'guessed', data.guess, '...', data.result ? 'CORRECT!' : 'WRONG!');
     io.emit('guess', data);
+  });
+
+  socket.on('ready', function (data) {
+    game.selectMovie(data.room, data.movie);
+
+    console.log(data.username, 'selected', data.movie);
+    io.emit('ready');
   });
 
   socket.on('emote', function (data) {
