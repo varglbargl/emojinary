@@ -120,6 +120,26 @@ h1, h2, h3, h4 {
   color: #F06;
 }
 
+.correct {
+  position: absolute;
+  margin: 0;
+  left: 0;
+  top: 0;
+  width: 50%;
+  font-size: 16px;
+  background-color: #F06;
+}
+
+.skip {
+  position: absolute;
+  margin: 0;
+  right: 0;
+  top: 0;
+  width: 50%;
+  font-size: 16px;
+  background-color: #CCC;
+}
+
 .inputBox {
   box-sizing: border-box;
   width: 100%;

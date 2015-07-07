@@ -58,7 +58,7 @@ exports.guess = function (room, player, guess) {
     }
   }
 
-  return correct;
+  return 10;
 };
 
 exports.submitEmojis = function (room, emojis) {

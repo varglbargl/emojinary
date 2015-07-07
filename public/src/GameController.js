@@ -10,6 +10,7 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
   $scope.emojiLog = [];
   $scope.movieChoices = [];
   $scope.movie = '';
+  $scope.results = {};
 
   $scope.typeInput = function (evt) {
     if (evt.keyCode === 13) {
@@ -37,7 +38,7 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
   };
 
   $scope.selectMovie = function (n) {
-    $scope.movie = $scope.movieChoices;
+    $scope.movie = $scope.movieChoices[n];
     $scope.movieChoices = [];
 
     $rootScope.socket.emit('ready', {
@@ -98,30 +99,25 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
   });
 
   $rootScope.socket.on('guess', function (data) {
-    // broadcast results, switch players if !data.result
-    if (data.result) {
-      $timeout(function () {
-        $scope.results.who = data.username;
-      }, 1500);
-      $timeout(function () {
-        $scope.results.answer = data.answer;
-      }, 3000);
-      $timeout(function () {
-        $scope.results.points = data.points;
-      }, 4500);
-      $timeout(function () {
-        if (data.username === $rootScope.username) {
-          $rootScope.score += data.points;
-        }
-        newRound();
-        $rootScope.$digest();
-      }, 7500);
-    }
+    // broadcast results, switch currentAsker
+    $scope.results.username = data.username;
+    $scope.results.answer = data.answer;
+    $scope.results.points = data.points;
+    $scope.$digest();
+
+    $timeout(function () {
+      if (data.username === $rootScope.username) {
+        $rootScope.score += data.points;
+      }
+      newRound();
+      $rootScope.$digest();
+    }, 5000);
   });
 
   // game utils
 
   var newRound = function () {
+    $scope.results = {};
     $scope.emojiLog = [];
     $scope.ready = false;
     $scope.currentAsker++;

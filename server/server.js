@@ -49,10 +49,12 @@ io.on('connection', function (socket) {
   });
 
   socket.on('guess', function (data) {
-    data.result = game.guess(data.room, data.guess, data.username);
+    data.points = game.guess(data.room, data.guess, data.username);
 
-    console.log(data.username, 'guessed', data.guess, '...', data.result ? 'CORRECT!' : 'WRONG!');
-    io.emit('guess', data);
+    console.log(data.username, 'guessed', data.guess, '...', data.points ? 'CORRECT!' : 'WRONG!');
+    if (data.points) {
+      io.emit('guess', {username: data.username, answer: game.rooms[data.room].answer, points: data.points});
+    }
   });
 
   socket.on('ready', function (data) {
