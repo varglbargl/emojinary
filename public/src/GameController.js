@@ -37,6 +37,15 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
     }
   };
 
+  $scope.selectWinner = function (player) {
+    $rootScope.socket.emit('guess', {
+      username: $scope.players[player].name,
+      room: $rootScope.room,
+      guess: $scope.movie
+    });
+    $scope.movie = '';
+  };
+
   $scope.selectMovie = function (n) {
     $scope.movie = $scope.movieChoices[n];
     $scope.movieChoices = [];
@@ -93,6 +102,11 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
     $scope.$digest();
   });
 
+  $rootScope.socket.on('skip', function () {
+    newRound();
+    $scope.$digest();
+  });
+
   $rootScope.socket.on('emote', function (data) {
     $scope.emojiLog.push(data.emojis);
     $scope.$digest();
@@ -116,13 +130,25 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
 
   // game utils
 
+  $scope.skipRound = function () {
+    $scope.movie = '';
+    $rootScope.socket.emit('skip', {room: $rootScope.room});
+  };
+
   var newRound = function () {
     $scope.results = {};
     $scope.emojiLog = [];
+    $scope.movie = '';
     $scope.ready = false;
     $scope.currentAsker++;
     if ($scope.currentAsker >= $scope.players.length) {
       $scope.currentAsker = 0;
+    }
+
+    if ($scope.players.length > 1 && $scope.currentAsker === $scope.you) {
+      $http.get('/movies').success(function (data) {
+        $scope.movieChoices = data;
+      });
     }
   };
 

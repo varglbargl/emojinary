@@ -3,8 +3,8 @@
     <p class="emoji-block" ng-repeat="emote in emojiLog track by $index">{{emote}}</p>
   </div>
   <div class="timer"></div>
-  <a class="button correct" ng-show="currentAsker === you">CORRECT!</a>
-  <a class="button skip" ng-show="currentAsker === you">SKIP</a>
+  <a class="button correct" ng-show="currentAsker === you && ready" ng-click="ready = false">CORRECT!</a>
+  <a class="button skip" ng-show="currentAsker === you && ready" ng-click="skipRound()">SKIP</a>
   <p class="warning" ng-hide="isOnlyEmoji(emojis)">You may only use Emojis!</p>
   <form class="guess" ng-submit="submitGuess()">
     <input type="text" class="inputBox guessBox" ng-model="guess" ng-keypress="typeInput($event)" ng-show="currentAsker !== you && ready">
@@ -15,12 +15,19 @@
 <!-- results screen -->
 
 <div class="notification" ng-class="{visible: results.username}">
-  <h3>{{results.username}} correctly guessed {{results.answer}} for {{results.points}} points!</h3>
+  <h3 ng-show="results.username">{{results.username}} correctly guessed {{results.answer}} for {{results.points}} points!</h3>
 </div>
 
 <!-- movie selection screen -->
 
 <div class="notification" ng-class="{visible: movieChoices.length}">
-  <h3>Select a movie when you're ready to begin:</h3>
+  <h3 ng-show="movieChoices.length">Select a movie when you're ready to begin:</h3>
   <a class="button l-button" ng-repeat="choice in movieChoices track by $index" ng-click="selectMovie($index)">{{choice}}</a>
+</div>
+
+<!-- winner selection screen -->
+
+<div class="notification" ng-class="{visible: movie && !ready}">
+  <h3>Who guessed correctly?</h3>
+  <a class="button l-button" ng-repeat="player in players track by $index" ng-click="selectWinner($index)" ng-hide="player.name === username">{{player.name}}</a>
 </div>

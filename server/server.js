@@ -53,7 +53,7 @@ io.on('connection', function (socket) {
 
     console.log(data.username, 'guessed', data.guess, '...', data.points ? 'CORRECT!' : 'WRONG!');
     if (data.points) {
-      io.emit('guess', {username: data.username, answer: game.rooms[data.room].answer, points: data.points});
+      io.emit('guess', {username: data.username, answer: data.guess, points: data.points});
     }
   });
 
@@ -62,6 +62,13 @@ io.on('connection', function (socket) {
 
     console.log(data.username, 'selected', data.movie);
     io.emit('ready');
+  });
+
+  socket.on('skip', function (data) {
+    console.log(game.rooms[data.room].players[game.rooms[data.room].currentAsker].name, 'skipped their turn.');
+
+    game.newRound(data.room);
+    io.emit('skip');
   });
 
   socket.on('emote', function (data) {

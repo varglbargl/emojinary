@@ -47,7 +47,7 @@ exports.selectMovie = function (room, movie) {
   exports.rooms[room].answer = movie;
 };
 
-exports.guess = function (room, player, guess) {
+exports.guess = function (room, guess, player) {
   var correct = guess.toLowerCase() === exports.rooms[room].answer.toLowerCase();
 
   if (correct) {
@@ -56,9 +56,12 @@ exports.guess = function (room, player, guess) {
         exports.rooms[room].players[i].score += 10;
       }
     }
+
+    exports.newRound(room);
+    return 10;
   }
 
-  return 10;
+  return 0;
 };
 
 exports.submitEmojis = function (room, emojis) {
@@ -67,24 +70,14 @@ exports.submitEmojis = function (room, emojis) {
 
 exports.newRound = function (room) {
   room = exports.rooms[room];
-  room.phase = 'post-answer';
-
-  for (var i = 0; i < room.players.length; i++) {
-    room.players[i].out = false;
-  }
-};
-
-var restart = function (room) {
-  room = exports.rooms[room];
-  room.phase = 'ask';
-  room.prompt = null;
+  var answer = room.answer;
   room.currentAsker++;
+  room.answer = '';
+  room.emojiLog = [];
+
   if (room.currentAsker >= room.players.length) {
     room.currentAsker = 0;
   }
 
-  for (var i = 0; i < room.players.length; i++) {
-    room.players[i].out = true;
-    room.players[i].answer = null;
-  }
+  return answer;
 };
