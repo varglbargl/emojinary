@@ -75,7 +75,7 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
       }
     }
 
-    if ($scope.players.length > 1 && $scope.currentAsker === $scope.you) {
+    if ($scope.players.length > 1 && $scope.currentAsker === $scope.you && $scope.movieChoices.length === 0 && !$scope.ready) {
       $http.get('/movies').success(function (data) {
         $scope.movieChoices = data;
       });
