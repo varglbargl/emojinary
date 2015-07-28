@@ -1,1 +1,5 @@
-<h1>LOBBY</h1>
+<div class="notification visible">
+  <a class="button" ng-hide="player.name === username" ng-click="createRoom()">Create room</a>
+  <h3>or select a room to join:</h3>
+  <a class="button l-button" ng-repeat="roomName in rooms track by $index" ng-click="">{{roomName}}</a>
+</div>

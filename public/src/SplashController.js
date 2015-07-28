@@ -13,6 +13,6 @@ emojinary.controller('SplashController', ['$scope', '$rootScope', '$http', '$loc
     $rootScope.socket = io();
     $rootScope.room = 0;
 
-    $location.path('/game');
+    $location.path('/lobby');
   };
 }]);

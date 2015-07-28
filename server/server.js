@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
@@ -10,10 +11,29 @@ var movies = require('./movies.js');
 
 app.use(express.static('public'));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 app.get('/room', function (req, res) {
   var room = req.url.split('?')[1];
 
   res.send(getRoomData(room));
+});
+
+app.get('/rooms', function (req, res) {
+  var rooms = Object.keys(game.rooms);
+
+  res.send(rooms);
+});
+
+app.post('/rooms', function (req, res) {
+  console.log('Creating room named', req.body.room);
+  var success = game.createRoom(req.body.room);
+  if (success) {
+    res.send({success: true});
+  } else {
+    res.send({error: 'Room named ' + req.body.room + ' already exists.'});
+  }
 });
 
 app.get('/movies', function (req, res) {

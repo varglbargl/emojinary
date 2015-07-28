@@ -22,6 +22,7 @@
   "homepage": "https://github.com/ehannum/emojinary",
   "dependencies": {
     "express": "~4.13.0",
-    "socket.io": "~1.3.5"
+    "socket.io": "~1.3.5",
+    "body-parser": "~1.13.2"
   }
 }

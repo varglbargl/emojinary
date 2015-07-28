@@ -14,11 +14,18 @@ exports.rooms = [
 ];
 
 exports.joinRoom = function (name, room, id) {
+  exports.rooms[room].players.push({id: id, name: name, answer: null, out: true});
+};
+
+exports.createRoom = function (room) {
   if (!exports.rooms[room]) {
     console.log('Creating room:', room);
     exports.rooms[room] = {players: [], currentAsker: 0, emojiLog: []};
+
+    return true;
   }
-  exports.rooms[room].players.push({id: id, name: name, answer: null, out: true});
+
+  return false;
 };
 
 exports.leaveRoom = function (id, room) {
