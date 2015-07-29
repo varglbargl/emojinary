@@ -3,6 +3,7 @@ emojinary.controller('LobbyController', ['$scope', '$rootScope', '$http', '$loca
 
   $scope.createRoom = function () {
     var name = prompt('Type a name for your room:');
+    name = name.replace(/\s/g, '_');
 
     if (!name) {
       $location.path('/');

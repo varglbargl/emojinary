@@ -18,9 +18,7 @@ exports.joinRoom = function (name, room, id) {
 };
 
 exports.createRoom = function (room) {
-  room = room.split(' ').join('_');
   if (!exports.rooms[room]) {
-    console.log('Creating room:', room);
     exports.rooms[room] = {players: [], currentAsker: 0, emojiLog: []};
 
     return true;

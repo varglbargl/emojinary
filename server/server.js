@@ -17,8 +17,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/room', function (req, res) {
   var room = req.url.split('?')[1];
 
-  console.log(room, Object.keys(game.rooms));
-
   res.send(getRoomData(room));
 });
 
@@ -44,7 +42,7 @@ app.get('/movies', function (req, res) {
 
 var getRoomData = function (room) {
   if (!game.rooms[room]) {
-    return {error: 'Room does not exist, creating room "' + room + '".'};
+    return {error: 'Room "' + room + '" does not exist.'};
   }
 
   var roomData = {
@@ -65,9 +63,10 @@ io.on('connection', function (socket) {
 
   socket.on('join', function (data) {
     game.joinRoom(data.name, data.room, socket.id);
+    socket.join(data.room);
 
-    console.log('A user has connected:', data.name);
-    io.emit('player-join', getRoomData(data.room));
+    console.log('User, ' + data.name + ' has connected to ' + data.room);
+    io.to(data.room).emit('player-join', getRoomData(data.room));
   });
 
   socket.on('guess', function (data) {
@@ -75,7 +74,7 @@ io.on('connection', function (socket) {
 
     console.log(data.username, 'guessed', data.guess, '...', data.points ? 'CORRECT!' : 'WRONG!');
     if (data.points) {
-      io.emit('guess', {username: data.username, answer: data.guess, points: data.points});
+      io.to(data.room).emit('guess', {username: data.username, answer: data.guess, points: data.points});
     }
   });
 
@@ -83,21 +82,21 @@ io.on('connection', function (socket) {
     game.selectMovie(data.room, data.movie);
 
     console.log(data.username, 'selected', data.movie);
-    io.emit('ready');
+    io.to(data.room).emit('ready');
   });
 
   socket.on('skip', function (data) {
     console.log(game.rooms[data.room].players[game.rooms[data.room].currentAsker].name, 'skipped their turn.');
 
     game.newRound(data.room);
-    io.emit('skip');
+    io.to(data.room).emit('skip');
   });
 
   socket.on('emote', function (data) {
     game.submitEmojis(data.room, data.emojis);
 
     console.log(game.rooms[data.room].players[game.rooms[data.room].currentAsker].name, 'emoted', data.emojis);
-    io.emit('emote', data);
+    io.to(data.room).emit('emote', data);
   });
 
   socket.on('disconnect', function () {
@@ -106,7 +105,7 @@ io.on('connection', function (socket) {
     if (!player) return;
     console.log('A user has disconnected:', player.name);
 
-    io.emit('player-leave', getRoomData(player.room));
+    io.to(player.room).emit('player-leave', getRoomData(player.room));
   });
 });
 
