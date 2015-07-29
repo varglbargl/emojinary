@@ -11,7 +11,6 @@ emojinary.controller('SplashController', ['$scope', '$rootScope', '$http', '$loc
     if (!$rootScope.username) return;
 
     $rootScope.socket = io();
-    $rootScope.room = 0;
 
     $location.path('/lobby');
   };

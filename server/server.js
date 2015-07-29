@@ -17,6 +17,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/room', function (req, res) {
   var room = req.url.split('?')[1];
 
+  console.log(room, Object.keys(game.rooms));
+
   res.send(getRoomData(room));
 });
 
@@ -61,11 +63,11 @@ var getRoomData = function (room) {
 
 io.on('connection', function (socket) {
 
-  socket.on('join', function (name) {
-    game.joinRoom(name, 0, socket.id);
+  socket.on('join', function (data) {
+    game.joinRoom(data.name, data.room, socket.id);
 
-    console.log('A user has connected:', name);
-    io.emit('player-join', getRoomData(0));
+    console.log('A user has connected:', data.name);
+    io.emit('player-join', getRoomData(data.room));
   });
 
   socket.on('guess', function (data) {
@@ -99,14 +101,12 @@ io.on('connection', function (socket) {
   });
 
   socket.on('disconnect', function () {
-    if (!game.rooms[0]) return;
+    var player = game.leaveRoom(socket.id);
 
-    var name = game.leaveRoom(socket.id, 0);
-    console.log('A user has disconnected:', name);
+    if (!player) return;
+    console.log('A user has disconnected:', player.name);
 
-    if (!game.rooms[0]) return;
-
-    io.emit('player-leave', getRoomData(0));
+    io.emit('player-leave', getRoomData(player.room));
   });
 });
 

@@ -19,6 +19,11 @@ emojinary.controller('LobbyController', ['$scope', '$rootScope', '$http', '$loca
     });
   };
 
+  $scope.joinRoom = function (room) {
+    $rootScope.room = room;
+    $location.path('/game');
+  };
+
   $http.get('/rooms').success(function (data) {
     $scope.rooms = data;
   });

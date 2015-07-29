@@ -162,7 +162,7 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
 
   // initial room construction
 
-  $http.get('/room?0').success(function (data) {
+  $http.get('/room?' + $rootScope.room).success(function (data) {
     if (data.error) {
       console.log('Empty room response: ' + data.error);
     } else {
@@ -170,6 +170,6 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
       initPlayers(data.players);
     }
 
-    $rootScope.socket.emit('join', $rootScope.username);
+    $rootScope.socket.emit('join', {name: $rootScope.username, room:$rootScope.room});
   });
 }]);

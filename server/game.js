@@ -1,7 +1,7 @@
 var movies = require('./movies.js');
 
-exports.rooms = [
-  {
+exports.rooms = {
+  'Default_Room':{
     answer: '',
     emojiLog: [],
     currentAsker: 0,
@@ -11,13 +11,14 @@ exports.rooms = [
       // score: integer }
     ]
   }
-];
+};
 
 exports.joinRoom = function (name, room, id) {
   exports.rooms[room].players.push({id: id, name: name, answer: null, out: true});
 };
 
 exports.createRoom = function (room) {
+  room = room.split(' ').join('_');
   if (!exports.rooms[room]) {
     console.log('Creating room:', room);
     exports.rooms[room] = {players: [], currentAsker: 0, emojiLog: []};
@@ -29,16 +30,37 @@ exports.createRoom = function (room) {
 };
 
 exports.leaveRoom = function (id, room) {
-  var players = exports.rooms[room].players;
   var name = '';
+  var players = [];
 
-  for (var i = 0; i < players.length; i++) {
-    if (players[i].id === id) {
-      name = players[i].name;
-      players.splice(i, 1);
-      break;
+  if (room === undefined) {
+    // locate player in any room
+    for (var i = 0; i < exports.rooms.length; i++) {
+      var searchRoom = exports.rooms[i];
+      for (var j = 0; j < searchRoom.players.length; j++) {
+        if (searchRoom.players[j].id === id) {
+          room = searchRoom;
+          players = exports.rooms[room].players;
+          name = players[j].name;
+          players.splice(j, 1);
+          break;
+        }
+      }
+    }
+  } else {
+    players = exports.rooms[room].players;
+
+    for (var i = 0; i < players.length; i++) {
+      if (players[i].id === id) {
+        name = players[i].name;
+        players.splice(i, 1);
+        break;
+      }
     }
   }
+
+  if (room === undefined) return;
+
   if (exports.rooms[room].currentAsker >= players.length) {
     exports.rooms[room].currentAsker = 0;
   }
@@ -47,7 +69,7 @@ exports.leaveRoom = function (id, room) {
     exports.rooms[room] = null;
   }
 
-  return name;
+  return {name: name, room: room};
 };
 
 exports.selectMovie = function (room, movie) {
