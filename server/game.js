@@ -57,6 +57,10 @@ exports.leaveRoom = function (id, room) {
     }
   }
 
+  if (!room || !exports.rooms[room]) {
+    return;
+  }
+
   if (exports.rooms[room].currentAsker >= players.length) {
     exports.rooms[room].currentAsker = 0;
   }
