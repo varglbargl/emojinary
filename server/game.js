@@ -33,14 +33,14 @@ exports.leaveRoom = function (id, room) {
 
   if (room === undefined) {
     // locate player in any room
-    for (var i = 0; i < exports.rooms.length; i++) {
-      var searchRoom = exports.rooms[i];
-      for (var j = 0; j < searchRoom.players.length; j++) {
-        if (searchRoom.players[j].id === id) {
-          room = searchRoom;
-          players = exports.rooms[room].players;
-          name = players[j].name;
-          players.splice(j, 1);
+    for (var key in exports.rooms) {
+      var searchRoom = exports.rooms[key];
+      for (var i = 0; i < searchRoom.players.length; i++) {
+        if (searchRoom.players[i].id === id) {
+          room = key;
+          name = searchRoom.players[i].name;
+          searchRoom.players.splice(i, 1);
+          players = searchRoom.players;
           break;
         }
       }
@@ -56,8 +56,6 @@ exports.leaveRoom = function (id, room) {
       }
     }
   }
-
-  if (room === undefined) return;
 
   if (exports.rooms[room].currentAsker >= players.length) {
     exports.rooms[room].currentAsker = 0;

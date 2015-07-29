@@ -65,7 +65,7 @@ io.on('connection', function (socket) {
     game.joinRoom(data.name, data.room, socket.id);
     socket.join(data.room);
 
-    console.log('User, ' + data.name + ' has connected to ' + data.room);
+    console.log('User "' + data.name + '" has connected to "' + data.room + '".');
     io.to(data.room).emit('player-join', getRoomData(data.room));
   });
 
@@ -105,6 +105,7 @@ io.on('connection', function (socket) {
     if (!player) return;
     console.log('A user has disconnected:', player.name);
 
+    if (!player.room) return;
     io.to(player.room).emit('player-leave', getRoomData(player.room));
   });
 });
