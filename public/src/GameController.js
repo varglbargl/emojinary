@@ -100,11 +100,15 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
   $rootScope.socket.on('player-leave', function (data) {
     initPlayers(data.players);
 
-    // This assumes names are unique. Handle that server side.
-    for (var i = 0; i < data.players.length; i++) {
-      if (data.players[i].name === $rootScope.username) {
-        $scope.you = i;
+    if ($scope.players.length > 1) {
+      // This assumes names are unique. Handle that server side.
+      for (var i = 0; i < data.players.length; i++) {
+        if (data.players[i].name === $rootScope.username) {
+          $scope.you = i;
+        }
       }
+    } else {
+      newRound();
     }
 
     $scope.$digest();
@@ -177,7 +181,7 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
   };
 
   $scope.isOnlyEmoji = function (str) {
-    return (/^([\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDEFF]|[\u2600-\u27BF]|\s)*$/gm).test(str);
+    return (/^([\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDEFF]|[\u25A0-\u27BF]|[\u2900-\u297F]|\s)*$/gm).test(str);
   };
 
   // initial room construction

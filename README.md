@@ -11,4 +11,6 @@ TODO:
 
  - Maybe add a countdown timer that starts after the first emojis are sent. For the purposes of awarding more points for quicker answers, not for ending the round when it runs out.
 
+ - Completely rework the CSS and make everything all shiny and shit.
+
  - Come up with a new name. "Emojinary" is already basically everywhere. Try googling it.
