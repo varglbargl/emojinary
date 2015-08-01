@@ -177,7 +177,7 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
   };
 
   $scope.isOnlyEmoji = function (str) {
-    return (/^([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF]|\uD83D[\uDE80-\uDEF3]|\uD83D[\uDE00-\uDE4f]|[\u2600-\u27BF]|\s)*$/gm).test(str);
+    return (/^([\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDEFF]|[\u2600-\u27BF]|\s)*$/gm).test(str);
   };
 
   // initial room construction
