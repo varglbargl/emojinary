@@ -113,7 +113,9 @@ io.on('connection', function (socket) {
     console.log('A user has disconnected:', player.name);
 
     if (!player.room) return;
-    io.to(player.room).emit('player-leave', getRoomData(player.room));
+    var data = getRoomData(player.room);
+    data.reset = player.reset;
+    io.to(player.room).emit('player-leave', data);
   });
 });
 

@@ -31,6 +31,7 @@ exports.createRoom = function (room) {
 exports.leaveRoom = function (id, room) {
   var name = '';
   var players = [];
+  var reset = false;
 
   if (room === undefined) {
     // locate player in any room
@@ -42,6 +43,12 @@ exports.leaveRoom = function (id, room) {
           name = searchRoom.players[i].name;
           searchRoom.players.splice(i, 1);
           players = searchRoom.players;
+
+          if (searchRoom.currentAsker === i) {
+            exports.newRound(room);
+            reset = true;
+          }
+
           break;
         }
       }
@@ -70,7 +77,7 @@ exports.leaveRoom = function (id, room) {
     delete exports.rooms[room];
   }
 
-  return {name: name, room: room};
+  return {name: name, room: room, reset: reset};
 };
 
 exports.selectMovie = function (room, movie) {
@@ -104,7 +111,7 @@ exports.giveHint = function (room) {
 
   if (hintsGiven === 0) {
     exports.rooms[room].hints++;
-    return exports.rooms[room].answer.replace(/[a-z]/gi, '_');
+    return exports.rooms[room].answer.replace(/[a-z0-9]/gi, '_');
   } else if (hintsGiven === 1) {
     exports.rooms[room].hints = 2;
     return exports.rooms[room].answer.replace(/\B\w/g, '_');

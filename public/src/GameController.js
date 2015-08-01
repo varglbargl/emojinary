@@ -100,7 +100,7 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
   $rootScope.socket.on('player-leave', function (data) {
     initPlayers(data.players);
 
-    if ($scope.players.length > 1) {
+    if ($scope.players.length > 1 && !data.reset) {
       // This assumes names are unique. Handle that server side.
       for (var i = 0; i < data.players.length; i++) {
         if (data.players[i].name === $rootScope.username) {
