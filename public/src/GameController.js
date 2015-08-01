@@ -126,7 +126,6 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
   });
 
   $rootScope.socket.on('hint', function (data) {
-    console.log(data.hint);
     $scope.hint = data.hint;
     $scope.$digest();
   });

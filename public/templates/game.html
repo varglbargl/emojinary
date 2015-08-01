@@ -2,10 +2,11 @@
   <div class="stage">
     <p class="emoji-block" ng-repeat="emote in emojiLog track by $index">{{emote}}</p>
   </div>
-  <div class="timer"></div>
   <a class="button correct" ng-show="currentAsker === you && ready" ng-click="ready = false">CORRECT!</a>
   <a class="button hint" ng-show="currentAsker === you && ready" ng-click="giveHint()" ng-class="{inactive: !hintsLeft}">HINT x {{hintsLeft}}</a>
   <a class="button skip" ng-show="currentAsker === you && ready" ng-click="skipRound()">SKIP</a>
+  <div class="hint-block">{{hint}}</div>
+
   <p class="warning" ng-hide="isOnlyEmoji(emojis)">You may only use Emojis!</p>
   <form class="guess" ng-submit="submitGuess()">
     <input type="text" class="inputBox guessBox" ng-model="guess" ng-keypress="typeInput($event)" ng-show="currentAsker !== you && ready">
