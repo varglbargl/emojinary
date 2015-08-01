@@ -79,16 +79,17 @@ exports.selectMovie = function (room, movie) {
 
 exports.guess = function (room, guess, player) {
   var correct = guess.toLowerCase() === exports.rooms[room].answer.toLowerCase();
+  var score = (3 - exports.rooms[room].hints) * 10;
 
   if (correct) {
     for (var i = 0; i < exports.rooms[room].players.length; i++) {
       if (exports.rooms[room].players[i].name === player) {
-        exports.rooms[room].players[i].score += 10;
+        exports.rooms[room].players[i].score += score;
       }
     }
 
     exports.newRound(room);
-    return 10;
+    return score;
   }
 
   return 0;
@@ -105,7 +106,7 @@ exports.giveHint = function (room) {
     exports.rooms[room].hints++;
     return exports.rooms[room].answer.replace(/[a-z]/gi, '_');
   } else if (hintsGiven === 1) {
-    // exports.rooms[room].hints++;
+    exports.rooms[room].hints = 2;
     return exports.rooms[room].answer.replace(/\B\w/g, '_');
   }
 };

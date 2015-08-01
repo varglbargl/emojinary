@@ -9,8 +9,6 @@ TODO:
 
  - Add a "close enough" algorithm to the guessing function to detect that "Feris Bulers Day Off" is basically the same as "Ferris Bueller's Day Off"
 
- - Add a hint system that gives aditional info about the movie when you're stuck because skipping your turn sucks.
-
  - Maybe add a countdown timer that starts after the first emojis are sent. For the purposes of awarding more points for quicker answers, not for ending the round when it runs out.
 
  - Come up with a new name. "Emojinary" is already basically everywhere. Try googling it.
