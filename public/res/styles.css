@@ -125,9 +125,19 @@ h1, h2, h3, h4 {
   margin: 0;
   left: 0;
   top: 0;
-  width: 50%;
+  width: 33.3%;
   font-size: 16px;
   background-color: #F06;
+}
+
+.hint {
+  position: absolute;
+  margin: 0;
+  left: 33.3%;
+  top: 0;
+  width: 33.3%;
+  font-size: 16px;
+  background-color: #39F;
 }
 
 .skip {
@@ -135,9 +145,13 @@ h1, h2, h3, h4 {
   margin: 0;
   right: 0;
   top: 0;
-  width: 50%;
+  width: 33.3%;
   font-size: 16px;
-  background-color: #CCC;
+  background-color: #999;
+}
+
+.inactive {
+  opacity: 0.4;
 }
 
 .inputBox {

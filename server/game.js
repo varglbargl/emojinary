@@ -2,6 +2,7 @@ var movies = require('./movies.js');
 
 exports.rooms = {
   'Default_Room':{
+    hints: 0,
     answer: '',
     emojiLog: [],
     currentAsker: 0,
@@ -19,7 +20,7 @@ exports.joinRoom = function (name, room, id) {
 
 exports.createRoom = function (room) {
   if (!exports.rooms[room]) {
-    exports.rooms[room] = {players: [], currentAsker: 0, emojiLog: []};
+    exports.rooms[room] = {players: [], currentAsker: 0, emojiLog: [], hints: 0, answer: ''};
 
     return true;
   }
@@ -97,11 +98,24 @@ exports.submitEmojis = function (room, emojis) {
   exports.rooms[room].emojiLog.push(emojis);
 };
 
+exports.giveHint = function (room) {
+  var hintsGiven = exports.rooms[room].hints;
+
+  if (hintsGiven === 0) {
+    exports.rooms[room].hints++;
+    return exports.rooms[room].answer.replace(/[a-z]/gi, '_');
+  } else if (hintsGiven === 1) {
+    // exports.rooms[room].hints++;
+    return exports.rooms[room].answer.replace(/\B\w/g, '_');
+  }
+};
+
 exports.newRound = function (room) {
   room = exports.rooms[room];
   var answer = room.answer;
   room.currentAsker++;
   room.answer = '';
+  room.hints = 0;
   room.emojiLog = [];
 
   if (room.currentAsker >= room.players.length) {

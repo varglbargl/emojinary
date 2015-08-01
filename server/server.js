@@ -99,6 +99,13 @@ io.on('connection', function (socket) {
     io.to(data.room).emit('emote', data);
   });
 
+  socket.on('hint', function (data) {
+    console.log(data.username, 'gave a hint.');
+
+    var hint = game.giveHint(data.room);
+    io.to(data.room).emit('hint', {hint: hint});
+  });
+
   socket.on('disconnect', function () {
     var player = game.leaveRoom(socket.id);
 

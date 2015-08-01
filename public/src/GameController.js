@@ -10,6 +10,8 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
   $scope.emojiLog = [];
   $scope.movieChoices = [];
   $scope.movie = '';
+  $scope.hint = '';
+  $scope.hintsLeft = 2;
   $scope.results = {};
 
   $scope.typeInput = function (evt) {
@@ -54,6 +56,17 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
       username: $rootScope.username,
       room: $rootScope.room,
       movie: $scope.movie
+    });
+  };
+
+  $scope.giveHint = function () {
+    if ($scope.hintsLeft === 0) return;
+
+    $scope.hintsLeft--;
+
+    $rootScope.socket.emit('hint', {
+      username: $rootScope.username,
+      room: $rootScope.room
     });
   };
 
@@ -112,6 +125,12 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
     $scope.$digest();
   });
 
+  $rootScope.socket.on('hint', function (data) {
+    console.log(data.hint);
+    $scope.hint = data.hint;
+    $scope.$digest();
+  });
+
   $rootScope.socket.on('guess', function (data) {
     // broadcast results, switch currentAsker
     $scope.results.username = data.username;
@@ -139,6 +158,8 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
     $scope.results = {};
     $scope.emojiLog = [];
     $scope.movie = '';
+    $scope.hint = '';
+    $scope.hintsLeft = 2;
     $scope.ready = false;
     $scope.currentAsker++;
     if ($scope.currentAsker >= $scope.players.length) {
