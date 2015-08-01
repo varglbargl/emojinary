@@ -1,7 +1,7 @@
 var movies = require('./movies.js');
 
 exports.rooms = {
-  'Default_Room':{
+  'Room_Zero':{
     hints: 0,
     answer: '',
     emojiLog: [],
@@ -15,7 +15,7 @@ exports.rooms = {
 };
 
 exports.joinRoom = function (name, room, id) {
-  exports.rooms[room].players.push({id: id, name: name, answer: null, out: true});
+  exports.rooms[room].players.push({id: id, name: name});
 };
 
 exports.createRoom = function (room) {
@@ -67,7 +67,7 @@ exports.leaveRoom = function (id, room) {
   }
   if (players.length === 0) {
     console.log('Deleting room:', room);
-    exports.rooms[room] = null;
+    delete exports.rooms[room];
   }
 
   return {name: name, room: room};
