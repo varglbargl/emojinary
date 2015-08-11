@@ -1,1 +1,4 @@
 node_modules/
+public/src/build.js
+public/res/*
+.sass-cache/

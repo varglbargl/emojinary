@@ -7,10 +7,15 @@ Designed for same room multiplayer though technically there is a text box for gu
 
 TODO:
 
- - Add a "close enough" algorithm to the guessing function to detect that "Feris Bulers Day Off" is basically the same as "Ferris Bueller's Day Off"
+ - Add a "close enough" algorithm to the guessing function to detect that "feris bulers day off" is basically the same as "Ferris Bueller's Day Off"
 
  - Maybe add a countdown timer that starts after the first emojis are sent. For the purposes of awarding more points for quicker answers, not for ending the round when it runs out.
 
  - Completely rework the CSS and make everything all shiny and shit.
 
  - Come up with a new name. "Emojinary" is already basically everywhere. Try googling it.
+
+INSTRUCTIONS:
+
+1. npm install; grunt
+2. That's it.
