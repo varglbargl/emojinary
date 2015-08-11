@@ -14,18 +14,21 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// get data for a single room
 app.get('/room', function (req, res) {
   var room = req.url.split('?')[1];
 
   res.send(getRoomData(room));
 });
 
+// get data for all rooms
 app.get('/rooms', function (req, res) {
   var rooms = Object.keys(game.rooms);
 
   res.send(rooms);
 });
 
+// create a new room
 app.post('/rooms', function (req, res) {
   console.log('Creating room named', req.body.room);
   var success = game.createRoom(req.body.room);
@@ -36,6 +39,7 @@ app.post('/rooms', function (req, res) {
   }
 });
 
+// get a list of three (3) movies
 app.get('/movies', function (req, res) {
   res.send(movies.getThree());
 });
@@ -55,9 +59,6 @@ var getRoomData = function (room) {
 };
 
 // -- SOCKET.IO
-
-// AT THE MOMENT there is ony one room called simply 0.
-// todo: add the ability to create and join specific rooms
 
 io.on('connection', function (socket) {
 
@@ -121,6 +122,6 @@ io.on('connection', function (socket) {
 
 // -- START SERVER
 
-var port = process.env.PORT || 3030;
+var port = process.env.PORT || 3030; //like del
 console.log('Listening on port', port);
 http.listen(port);
