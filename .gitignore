@@ -1,4 +1,4 @@
 node_modules/
 public/src/build.js
-public/res/*
+public/res/*.css
 .sass-cache/

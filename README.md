@@ -17,5 +17,6 @@ TODO:
 
 INSTRUCTIONS:
 
-1. npm install; grunt
-2. That's it.
+1. npm install
+2. grunt to recompile
+3. That's it.
