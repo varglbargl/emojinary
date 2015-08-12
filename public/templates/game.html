@@ -10,8 +10,9 @@
 
   <p class="warning" ng-hide="isOnlyEmoji(emojis)">You may only use Emojis!</p>
   <form class="guess" ng-submit="submitGuess()">
-    <input type="text" class="inputBox guessBox" ng-model="guess" ng-keypress="typeInput($event)" ng-show="currentAsker !== you && ready">
-    <input type="text" class="inputBox emojiBox" ng-model="emojis" ng-keypress="typeInput($event)" ng-show="currentAsker === you && ready" ng-class="{red: !isOnlyEmoji(emojis)}">
+    <input type="text" class="input-box" ng-model="guess" ng-keypress="typeInput($event)" ng-show="currentAsker !== you && ready">
+    <input type="text" class="input-box" ng-model="emojis" ng-keypress="typeInput($event)" ng-show="currentAsker === you && ready" ng-class="{red: !isOnlyEmoji(emojis)}">
+    <input type="submit" value="SEND" class="send" ng-show="ready">
   </form>
 </div>
 
