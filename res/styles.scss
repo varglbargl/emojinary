@@ -1,7 +1,15 @@
-@mixin cartoonBorder ($color) {
-  border: 3px solid mix($color, #000, 60%);
-  border-radius: 10px;
+@mixin cartoonButton ($color) {
+  color: #FFF;
+  border: 1px solid black;
+  border-radius: 3px;
+  margin: 6px 4px 9px 1px;
+  box-shadow: rgba(0, 0, 0, 0.4) 4px 4px;
   @include linearGradient($color, mix($color, #703, 80%));
+
+  &:active {
+    box-shadow: rgba(0, 0, 0, 0.4) 4px 4px inset;
+    margin: 9px 1px 6px 4px;
+  }
 }
 
 @mixin linearGradient ($top, $bottom) {
@@ -26,7 +34,7 @@ body {
   height: 100%;
   min-height: 100%;
   margin: 0;
-  padding: 0;
+  padding: 1px;
   padding-top: 20px;
   box-sizing: border-box;
 }
@@ -39,8 +47,10 @@ header {
   box-sizing: border-box;
   top: 0;
   left: 0;
-  background-color: #333;
+  background-color: orange;
   color: #FFF;
+  border-bottom: 1px solid black;
+  box-shadow: rgba(0, 0, 0, 0.4) 0 4px;
   padding: 0 5px;
   z-index: 9999;
 }
@@ -73,54 +83,59 @@ h1, h2, h3, h4 {
   position: relative;
   max-width: 500px;
   margin: 0 auto;
+
+  .hint-block {
+    display: block;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    font-size: 30px;
+    letter-spacing: 5px;
+    padding: 10px;
+    padding-top: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+  }
 }
 
 .button {
+  @include cartoonButton(#69F);
+
   background-color: #333;
   width: 60%;
   display: block;
-  border-radius: 5px;
-  border: 0;
-  margin: 10px auto;
   padding: 5px;
   box-sizing: border-box;
 
-  color: #FFF;
   font-size: 36px;
   text-decoration: none;
 
+  &.inactive {
+    opacity: 0.4;
+  }
+}
+
+.emote-top-menu {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+
   .correct {
-    position: absolute;
-    margin: 0;
-    left: 0;
-    top: 0;
-    width: 33.3%;
+    @include cartoonButton(green);
     font-size: 16px;
-    background-color: #F06;
   }
 
   .hint {
-    position: absolute;
-    margin: 0;
-    left: 33.3%;
-    top: 0;
-    width: 33.3%;
+    @include cartoonButton(orange);
     font-size: 16px;
-    background-color: #39F;
   }
 
   .skip {
-    position: absolute;
-    margin: 0;
-    right: 0;
-    top: 0;
-    width: 33.3%;
+    @include cartoonButton(gray);
     font-size: 16px;
-    background-color: #999;
-  }
-
-  .inactive {
-    opacity: 0.4;
   }
 }
 
@@ -132,10 +147,9 @@ h1, h2, h3, h4 {
 }
 
 .play-button {
-  @include cartoonBorder(#69F);
+  @include cartoonButton(#69F);
   position: absolute;
   top: 50%;
-  margin-top: -24px;
   left: 20%;
 
   *:focus, *:active {
@@ -173,12 +187,17 @@ h1, h2, h3, h4 {
 }
 
 .guess {
+  width: 100%;
   display: flex;
+  position: absolute;
+  bottom: 0;
 
   .input-box {
     box-sizing: border-box;
     border: 2px solid black;
     font-size: 20px;
+    flex: 4;
+    margin: 6px;
 
     .red {
       border: 2px solid #F06;
@@ -187,8 +206,10 @@ h1, h2, h3, h4 {
   }
 
   .send {
-    min-width: 20px;
-    width: 10%;
+    @include cartoonButton(#69F);
+    font-size: 16px;
+    min-width: 60px;
+    flex: 1;
   }
 }
 
@@ -206,15 +227,5 @@ h1, h2, h3, h4 {
     text-align: left;
     margin: 0;
     font-size: 40px;
-  }
-
-  .hint-block {
-    display: block;
-    background-color: rgba(255, 255, 255, 0.8);
-    margin: 0;
-    font-size: 30px;
-    letter-spacing: 5px;
-    padding: 10px;
-    padding-top: 30px;
   }
 }
