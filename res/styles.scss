@@ -146,6 +146,12 @@ h1, h2, h3, h4 {
 
 .splash {
   @include linearGradient(#FFF, #CFF);
+
+  .logo {
+    width: 80%;
+    margin: 40px 0;
+  }
+
   .play {
     @include cartoonButton(#6FD);
     line-height: 60px;
