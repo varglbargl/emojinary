@@ -1,7 +1,8 @@
 <div class="centered-content">
   <div class="stage">
     <p class="emoji-block" ng-repeat="emote in emojiLog track by $index">{{emote}}</p>
-    <p ng-hide="emojiLog.length">Waiting for {{players[currentAsker].name}} to send some emojis...</p>
+    <p ng-hide="emojiLog.length || players.length < 2">Waiting for {{currentAsker === you ? "you" : players[currentAsker].name}} to send some emojis...</p>
+    <p ng-show="players.length < 2">Waiting for more players to join...</p>
   </div>
   <div class="emote-top-menu">
     <a class="button correct" ng-show="currentAsker === you && ready" ng-click="ready = false">CORRECT!</a>
