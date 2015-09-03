@@ -72,7 +72,7 @@ exports.leaveRoom = function (id, room) {
   if (exports.rooms[room].currentAsker >= players.length) {
     exports.rooms[room].currentAsker = 0;
   }
-  if (players.length === 0) {
+  if (players.length === 0 && room !== 'Room_Zero') {
     console.log('Deleting room:', room);
     delete exports.rooms[room];
   }

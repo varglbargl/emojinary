@@ -6,6 +6,9 @@ emojinary.controller('SplashController', ['$scope', '$rootScope', '$http', '$loc
     $rootScope.score = 0;
   }
 
+  $scope.showRules = false;
+  $scope.showCredits = false;
+
   $scope.play = function () {
     $rootScope.username = prompt('Select a username:');
     if (!$rootScope.username) return;
@@ -13,5 +16,13 @@ emojinary.controller('SplashController', ['$scope', '$rootScope', '$http', '$loc
     $rootScope.socket = io();
 
     $location.path('/lobby');
+  };
+
+  $scope.toggleRules = function () {
+    $scope.showRules = !$scope.showRules;
+  };
+
+  $scope.toggleCredits = function () {
+    $scope.showCredits = !$scope.showCredits;
   };
 }]);
