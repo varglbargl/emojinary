@@ -1,5 +1,5 @@
 {
-  "name": "emojinary",
+  "name": "mojies",
   "version": "0.3.0",
   "description": "Charades but with 100% emoji",
   "main": "server/server.js",
