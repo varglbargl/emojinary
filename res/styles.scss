@@ -2,7 +2,7 @@
   color: #FFF;
   border-radius: 3px;
   margin: 6px 4px 9px 1px;
-  box-shadow: rgba(0, 0, 0, 0.3) 4px 4px;
+  box-shadow: rgba(0, 0, 0, 0.2) 4px 4px;
   @include linearGradient($color, mix($color, #506, 60%));
 
   &:active {
@@ -47,9 +47,9 @@ header {
   box-sizing: border-box;
   top: 0;
   left: 0;
-  @include linearGradient(#FB3, mix(#FB3, #703, 80%));
+  @include linearGradient(#FB3, mix(#FB3, #703, 60%));
   color: #FFF;
-  box-shadow: rgba(0, 0, 0, 0.3) 0 4px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 4px;
   padding: 0 5px;
   z-index: 9999;
 }
