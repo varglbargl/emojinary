@@ -52,24 +52,23 @@ header {
   box-shadow: rgba(0, 0, 0, 0.2) 0 4px;
   padding: 0 5px;
   z-index: 9999;
-}
 
-header * {
-  font-size: 18px;
-  line-height: 20px;
+  .title {
+    font-size: 18px;
+    line-height: 20px;
+    float: left;
+  }
+
+  .score {
+    font-size: 18px;
+    line-height: 20px;
+    float: right;
+  }
 }
 
 h1, h2, h3, h4 {
   margin: 0;
   padding: 0;
-}
-
-.title {
-  float: left;
-}
-
-.score {
-  float: right;
 }
 
 *:focus {
@@ -149,7 +148,7 @@ h1, h2, h3, h4 {
 
   .logo {
     width: 80%;
-    margin: 40px 0;
+    margin: 0 0 40px 5%;
     flex-shrink: 0;
 
     @media screen and (orientation:landscape) {

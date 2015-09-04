@@ -9,6 +9,10 @@ emojinary.controller('SplashController', ['$scope', '$rootScope', '$http', '$loc
   $scope.showRules = false;
   $scope.showCredits = false;
 
+  var logos = ['mojies-topgun.png', 'mojies-bladerunner.png'];
+
+  $scope.randomLogo = logos[Math.floor(Math.random()*logos.length)];
+
   $scope.play = function () {
     $rootScope.username = prompt('Select a username:');
     if (!$rootScope.username) return;
