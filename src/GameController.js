@@ -100,15 +100,15 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
   $rootScope.socket.on('player-leave', function (data) {
     initPlayers(data.players);
 
-    if ($scope.players.length > 1 && !data.reset) {
+    if (data.reset) {
+      newRound();
+    } else {
       // This assumes names are unique. Handle that server side.
       for (var i = 0; i < data.players.length; i++) {
         if (data.players[i].name === $rootScope.username) {
           $scope.you = i;
         }
       }
-    } else {
-      newRound();
     }
 
     $scope.$digest();
@@ -161,6 +161,7 @@ emojinary.controller('GameController', ['$scope', '$rootScope', '$http', '$timeo
     $scope.results = {};
     $scope.emojiLog = [];
     $scope.movie = '';
+    $scope.movieChoices = [];
     $scope.hint = '';
     $scope.hintsLeft = 2;
     $scope.ready = false;

@@ -116,6 +116,9 @@ io.on('connection', function (socket) {
     if (!player.room) return;
     var data = getRoomData(player.room);
     data.reset = player.reset;
+
+    if (data.reset) console.log('Resetting room:', player.room);
+
     io.to(player.room).emit('player-leave', data);
   });
 });
