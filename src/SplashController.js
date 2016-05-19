@@ -1,10 +1,4 @@
 emojinary.controller('SplashController', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
-  if ($rootScope.socket) {
-    $rootScope.socket.disconnect();
-    $rootScope.username = '';
-    $rootScope.socket = null;
-    $rootScope.score = 0;
-  }
 
   $scope.showRules = false;
   $scope.showCredits = false;
@@ -17,7 +11,11 @@ emojinary.controller('SplashController', ['$scope', '$rootScope', '$http', '$loc
     $rootScope.username = prompt('Select a username:');
     if (!$rootScope.username) return;
 
-    $rootScope.socket = io();
+    if ($rootScope.socket) {
+      $rootScope.socket.connect();
+    } else {
+      $rootScope.socket = io();
+    }
 
     $location.path('/lobby');
   };

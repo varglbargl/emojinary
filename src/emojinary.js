@@ -26,4 +26,15 @@ var emojinary = angular.module('emojinary', ['ngRoute'])
   $rootScope.room = null;
   $rootScope.socket = null;
   $rootScope.score = 0;
+
+  $rootScope.resetUserAgent = function () {
+    if ($rootScope.socket) {
+      $rootScope.socket.disconnect();
+    }
+
+    $rootScope.username = '';
+    $rootScope.room = null;
+    $rootScope.score = 0;
+    $location.path('/');
+  };
 }]);

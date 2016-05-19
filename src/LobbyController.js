@@ -1,4 +1,9 @@
 emojinary.controller('LobbyController', ['$scope', '$rootScope', '$http', '$location', function ($scope, $rootScope, $http, $location) {
+  if($rootScope.room) {
+    $rootScope.resetUserAgent();
+    return;
+  }
+
   $scope.rooms = [];
 
   $scope.createRoom = function () {
