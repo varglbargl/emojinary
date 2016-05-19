@@ -13,6 +13,5 @@ TODO:
 DEV INSTRUCTIONS:
 
 1. npm install
-2. bundle install
-3. grunt
-4. That's about it...
+2. grunt
+3. That's about it...
